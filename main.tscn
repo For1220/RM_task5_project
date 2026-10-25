@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dwm3p3mfqj8p5" path="res://scripts/Base.gd" id="11_dg77c"]
 [ext_resource type="Script" uid="uid://wnu7t05sdets" path="res://scripts/SelectionController.gd" id="11_efxa6"]
 [ext_resource type="Script" uid="uid://glqxqbxnvctu" path="res://scripts/OutpostBuffPoint.gd" id="20_outpost_buff"]
+[ext_resource type="PackedScene" path="res://scenes/FieldWalls.tscn" id="21_fieldwalls"]
 
 [sub_resource type="Animation" id="Animation_0v5a2"]
 resource_name = "动作"
@@ -16687,6 +16688,8 @@ libraries/ = SubResource("AnimationLibrary_hufh0")
 
 [node name="SelectionController" type="Node" parent="." unique_id=426994561]
 script = ExtResource("11_efxa6")
+
+[node name="FieldWalls" parent="." instance=ExtResource("21_fieldwalls")]
 
 [editable path="HUD"]
 [editable path="HUD/StatsPanel"]
