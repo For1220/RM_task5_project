@@ -10,6 +10,7 @@
 /scenes/base.tscn
 /release/
 /video/
+/release_assets/
 
 # Blender source: keep only the runtime collision asset
 /blender/*
