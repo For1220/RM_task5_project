@@ -29,7 +29,7 @@ git clone git@github.com:For1220/RM_task5_project.git
 cd RM_task5_project
 git lfs pull
 ```
-
+第二次上传时已正确配置 release
 # 操作表
 - WASD 控制移动
 - SPACE/空格 控制跳跃
