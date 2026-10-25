@@ -5,7 +5,7 @@ extends CharacterBody3D
 @export var is_controlled:bool=false
 
 @export var speed : float=4.0
-@export var jump_speed : float=2.0
+@export var jump_speed : float=2.5
 @export var sensitivity: float=0.01
 @export var bullet_scene:PackedScene
 @export var max_hp:int = 200

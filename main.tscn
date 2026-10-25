@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dqdbkupy4qdci" path="res://assets/POWER_LEGGING5_FACE2.glb" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://dwm3p3mfqj8p5" path="res://scripts/Base.gd" id="11_dg77c"]
 [ext_resource type="Script" uid="uid://wnu7t05sdets" path="res://scripts/SelectionController.gd" id="11_efxa6"]
+[ext_resource type="Script" uid="uid://bml5axhsgo87h" path="res://scripts/Infantry.gd" id="12_vivmo"]
+[ext_resource type="Texture2D" uid="uid://biqr8esfoofns" path="res://textures/3.png" id="13_2cqfq"]
 [ext_resource type="Script" uid="uid://glqxqbxnvctu" path="res://scripts/OutpostBuffPoint.gd" id="20_outpost_buff"]
 [ext_resource type="PackedScene" path="res://scenes/FieldWalls.tscn" id="21_fieldwalls"]
 
@@ -10075,15 +10077,87 @@ _data = {
 &"open": SubResource("Animation_j3i32")
 }
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_hei0d"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yaehf"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gvppt"]
+size = Vector3(0.05, 0.05, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4qekj"]
+albedo_color = Color(0.7647059, 0.6901961, 0.5686275, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ay7qh"]
+size = Vector3(0.45, 0.2, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ay7qh"]
+albedo_color = Color(0.17254902, 0.18431373, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ay7qh"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tefdl"]
+albedo_color = Color(0.17254902, 0.18431373, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cs3h5"]
+albedo_color = Color(0.17254902, 0.18431373, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hei0d"]
+albedo_color = Color(0.17254902, 0.18431373, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvppt"]
+metallic = 0.8
+roughness = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cs3h5"]
+top_radius = 0.1
+bottom_radius = 0.12
+height = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_mmosd"]
+size = Vector3(0.05, 0.1, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_074og"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cegan"]
+size = Vector3(0.135, 0.125, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5b0f0"]
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_82xsv"]
+size = Vector3(0.135, 0.125, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6476j"]
+transparency = 1
+albedo_texture = ExtResource("13_2cqfq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ay7qh"]
+size = Vector2(0.135, 0.125)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
 emission_enabled = true
 emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 2.0
 
+[sub_resource type="BoxMesh" id="BoxMesh_tefdl"]
+size = Vector3(0.285, 0.01, 0.085)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 emission_enabled = true
 emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 20.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_hei0d"]
+size = Vector3(0.01, 0.05, 0.023)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
 emission_enabled = true
@@ -14705,7 +14779,7 @@ _data = {
 script = ExtResource("1_272bh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1847688360]
-transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 3.3601832, 0)
+transform = Transform3D(0.8660254, 0.35355335, -0.3535534, 0.26250696, 0.28030998, 0.92331815, 0.4255468, -0.8924272, 0.14994533, 0.12029505, 3.3601832, 0)
 light_indirect_energy = 0.5
 shadow_enabled = true
 
@@ -15380,7 +15454,7 @@ shape = SubResource("ConcavePolygonShape3D_dg77c")
 [node name="TeamBlue" type="Node3D" parent="Teams" unique_id=1416815352]
 
 [node name="InfantryBlue" parent="Teams/TeamBlue" unique_id=810333405 groups=["Player"] instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2777405, 0.26388383, 0)
 bullet_scene = ExtResource("2_0xm2m")
 
 [node name="OutpostBlue" type="Node3D" parent="Teams/TeamBlue" unique_id=905563031]
@@ -16014,41 +16088,225 @@ libraries/ = SubResource("AnimationLibrary_vb7a7")
 
 [node name="TeamRed" type="Node3D" parent="Teams" unique_id=941033935]
 
-[node name="InfantryRed" parent="Teams/TeamRed" unique_id=925201999 instance=ExtResource("1_ig7tw")]
+[node name="InfantryRed" type="CharacterBody3D" parent="Teams/TeamRed" unique_id=925201999]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.777578, 0, 0)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("12_vivmo")
 team = 1
 bullet_scene = ExtResource("2_0xm2m")
 
-[node name="MainLight" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" parent_id_path=PackedInt32Array(925201999, 560105547) index="2" unique_id=296907345]
+[node name="GimbalYaw" type="Node3D" parent="Teams/TeamRed/InfantryRed" unique_id=827932024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="GimbalPitch" type="Node3D" parent="Teams/TeamRed/InfantryRed/GimbalYaw" unique_id=1611002665]
+
+[node name="Muzzle" type="Marker3D" parent="Teams/TeamRed/InfantryRed/GimbalYaw/GimbalPitch" unique_id=426017586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25)
+
+[node name="Gunbarrel" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/GimbalYaw/GimbalPitch" unique_id=1003856689]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0, 0, 0.125)
+mesh = SubResource("CylinderMesh_hei0d")
+
+[node name="Camera_box" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/GimbalYaw/GimbalPitch" unique_id=1208171368]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.055, 0)
+material_override = SubResource("StandardMaterial3D_yaehf")
+mesh = SubResource("BoxMesh_gvppt")
+
+[node name="VisionViewport" type="SubViewport" parent="Teams/TeamRed/InfantryRed/GimbalYaw/GimbalPitch" unique_id=1227860607]
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="VisionCamera" type="Camera3D" parent="Teams/TeamRed/InfantryRed/GimbalYaw/GimbalPitch/VisionViewport" unique_id=131736278]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.455, 0.025)
+current = true
+near = 0.01
+
+[node name="Camera3D" type="Camera3D" parent="Teams/TeamRed/InfantryRed/GimbalYaw/GimbalPitch" unique_id=1537369714]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.055000007, 0.025)
+near = 0.01
+
+[node name="FireTimer" type="Timer" parent="Teams/TeamRed/InfantryRed" unique_id=749169272]
+wait_time = 0.1
+one_shot = true
+
+[node name="ChassisRoot" type="Node3D" parent="Teams/TeamRed/InfantryRed" unique_id=1950660432]
+
+[node name="ChassisMesh" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/ChassisRoot" unique_id=468465913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0)
+material_override = SubResource("StandardMaterial3D_4qekj")
+mesh = SubResource("BoxMesh_ay7qh")
+
+[node name="Wheel_FL" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/ChassisRoot" unique_id=1049689185]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.15, 0.08, 0.15)
+material_override = SubResource("StandardMaterial3D_ay7qh")
+mesh = SubResource("CylinderMesh_ay7qh")
+
+[node name="Wheel_FR" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/ChassisRoot" unique_id=1129807631]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.15, 0.08, 0.15)
+material_override = SubResource("StandardMaterial3D_tefdl")
+mesh = SubResource("CylinderMesh_ay7qh")
+
+[node name="Wheel_BL" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/ChassisRoot" unique_id=153990879]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.15, 0.08, -0.15)
+material_override = SubResource("StandardMaterial3D_cs3h5")
+mesh = SubResource("CylinderMesh_ay7qh")
+
+[node name="Wheel_BR" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/ChassisRoot" unique_id=1312744147]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.15, 0.08, -0.15)
+material_override = SubResource("StandardMaterial3D_hei0d")
+mesh = SubResource("CylinderMesh_ay7qh")
+
+[node name="YawBase" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/ChassisRoot" unique_id=1490253097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
+material_override = SubResource("StandardMaterial3D_gvppt")
+mesh = SubResource("CylinderMesh_cs3h5")
+
+[node name="YawMain" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/ChassisRoot" unique_id=1039569100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, 0)
+mesh = SubResource("BoxMesh_mmosd")
+
+[node name="ChassisCollision" type="CollisionShape3D" parent="Teams/TeamRed/InfantryRed" unique_id=16726704]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_074og")
+
+[node name="Armor" type="Node3D" parent="Teams/TeamRed/InfantryRed" unique_id=1703046228]
+
+[node name="ArmorFront" type="Node3D" parent="Teams/TeamRed/InfantryRed/Armor" unique_id=560105547]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 0.18, 0.26)
+
+[node name="Hitbox" type="Area3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" unique_id=238885754]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront/Hitbox" unique_id=1752841174]
+transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0, -8.940695e-08, -5.9604634e-08)
+shape = SubResource("BoxShape3D_cegan")
+
+[node name="Main_armor" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" unique_id=1151041959]
+material_override = SubResource("StandardMaterial3D_5b0f0")
+mesh = SubResource("BoxMesh_82xsv")
+
+[node name="Sticker" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront/Main_armor" unique_id=983199844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.011)
+material_override = SubResource("StandardMaterial3D_6476j")
+mesh = SubResource("QuadMesh_ay7qh")
+
+[node name="MainLight" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" unique_id=296907345]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11, 0)
 material_override = SubResource("StandardMaterial3D_0xm2m")
+mesh = SubResource("BoxMesh_tefdl")
 
-[node name="sonLight1" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" parent_id_path=PackedInt32Array(925201999, 560105547) index="3" unique_id=606900977]
+[node name="sonLight1" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" unique_id=606900977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_h2yge")
+mesh = SubResource("BoxMesh_hei0d")
 
-[node name="sonLight2" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" parent_id_path=PackedInt32Array(925201999, 560105547) index="4" unique_id=2113588296]
+[node name="sonLight2" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorFront" unique_id=2113588296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_1bvp3")
+mesh = SubResource("BoxMesh_hei0d")
 
-[node name="MainLight" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" parent_id_path=PackedInt32Array(925201999, 757634220) index="2" unique_id=698957877]
+[node name="ArmorBack" type="Node3D" parent="Teams/TeamRed/InfantryRed/Armor" unique_id=757634220]
+transform = Transform3D(-1, 2.2626677e-08, -8.444391e-08, 0, 0.96592575, 0.258819, 8.742278e-08, 0.258819, -0.96592575, 0, 0.18, -0.26)
+
+[node name="Hitbox" type="Area3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" unique_id=1264064914]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack/Hitbox" unique_id=1146195846]
+transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0, -8.940695e-08, -5.9604634e-08)
+shape = SubResource("BoxShape3D_cegan")
+
+[node name="Main_armor" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" unique_id=1289054387]
+material_override = SubResource("StandardMaterial3D_5b0f0")
+mesh = SubResource("BoxMesh_82xsv")
+
+[node name="Sticker" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack/Main_armor" unique_id=1818724347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.011)
+material_override = SubResource("StandardMaterial3D_6476j")
+mesh = SubResource("QuadMesh_ay7qh")
+
+[node name="MainLight" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" unique_id=698957877]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.11, 0)
 material_override = SubResource("StandardMaterial3D_lquwl")
+mesh = SubResource("BoxMesh_tefdl")
 
-[node name="sonLight1" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" parent_id_path=PackedInt32Array(925201999, 757634220) index="3" unique_id=1163017985]
+[node name="sonLight1" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" unique_id=1163017985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_7mycd")
+mesh = SubResource("BoxMesh_hei0d")
 
-[node name="sonLight2" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" parent_id_path=PackedInt32Array(925201999, 757634220) index="4" unique_id=91510105]
+[node name="sonLight2" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorBack" unique_id=91510105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_272bh")
+mesh = SubResource("BoxMesh_hei0d")
 
-[node name="sonLight1" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft" parent_id_path=PackedInt32Array(925201999, 1276563523) index="2" unique_id=186498109]
+[node name="ArmorLeft" type="Node3D" parent="Teams/TeamRed/InfantryRed/Armor" unique_id=1276563523]
+transform = Transform3D(-4.371139e-08, -0.258819, 0.9659257, 0, 0.9659257, 0.258819, -1, 1.1313338e-08, -4.2221956e-08, 0.26, 0.18, 0)
+
+[node name="Hitbox" type="Area3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft" unique_id=703627573]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft/Hitbox" unique_id=1713565268]
+transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0, -8.940695e-08, -5.9604634e-08)
+shape = SubResource("BoxShape3D_cegan")
+
+[node name="Main_armor" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft" unique_id=1127365190]
+material_override = SubResource("StandardMaterial3D_5b0f0")
+mesh = SubResource("BoxMesh_82xsv")
+
+[node name="Sticker" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft/Main_armor" unique_id=1470101555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.011)
+material_override = SubResource("StandardMaterial3D_6476j")
+mesh = SubResource("QuadMesh_ay7qh")
+
+[node name="sonLight1" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft" unique_id=186498109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_kek77")
+mesh = SubResource("BoxMesh_hei0d")
 
-[node name="sonLight2" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft" parent_id_path=PackedInt32Array(925201999, 1276563523) index="3" unique_id=16584575]
+[node name="sonLight2" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorLeft" unique_id=16584575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_4c57u")
+mesh = SubResource("BoxMesh_hei0d")
 
-[node name="sonLight1" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight" parent_id_path=PackedInt32Array(925201999, 864547806) index="2" unique_id=213160941]
+[node name="ArmorRight" type="Node3D" parent="Teams/TeamRed/InfantryRed/Armor" unique_id=864547806]
+transform = Transform3D(1.1924881e-08, 0.25881898, -0.96592563, 0, 0.96592563, 0.25881898, 1, -3.0863858e-09, 1.1518548e-08, -0.26, 0.18, 0)
+
+[node name="Hitbox" type="Area3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight" unique_id=731046664]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight/Hitbox" unique_id=1963104288]
+transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0, -8.940695e-08, -5.9604634e-08)
+shape = SubResource("BoxShape3D_cegan")
+
+[node name="Main_armor" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight" unique_id=1851186918]
+material_override = SubResource("StandardMaterial3D_5b0f0")
+mesh = SubResource("BoxMesh_82xsv")
+
+[node name="Sticker" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight/Main_armor" unique_id=1078090672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.011)
+material_override = SubResource("StandardMaterial3D_6476j")
+mesh = SubResource("QuadMesh_ay7qh")
+
+[node name="sonLight1" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight" unique_id=213160941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_dg77c")
+mesh = SubResource("BoxMesh_hei0d")
 
-[node name="sonLight2" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight" parent_id_path=PackedInt32Array(925201999, 864547806) index="3" unique_id=243000885]
+[node name="sonLight2" type="MeshInstance3D" parent="Teams/TeamRed/InfantryRed/Armor/ArmorRight" unique_id=243000885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.063, 0, 0)
 material_override = SubResource("StandardMaterial3D_ycdy4")
+mesh = SubResource("BoxMesh_hei0d")
 
 [node name="OutpostRed" type="Node3D" parent="Teams/TeamRed" unique_id=402746959]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.044857, 0.15998638, -3.8685477)
@@ -16689,11 +16947,10 @@ libraries/ = SubResource("AnimationLibrary_hufh0")
 [node name="SelectionController" type="Node" parent="." unique_id=426994561]
 script = ExtResource("11_efxa6")
 
-[node name="FieldWalls" parent="." instance=ExtResource("21_fieldwalls")]
+[node name="FieldWalls" parent="." unique_id=1119207393 instance=ExtResource("21_fieldwalls")]
 
 [editable path="HUD"]
 [editable path="HUD/StatsPanel"]
 [editable path="POWER_COL/ROOT/FACE_2/POWER_LEGGING5_FACE22"]
 [editable path="TECH_COL"]
 [editable path="Teams/TeamBlue/InfantryBlue"]
-[editable path="Teams/TeamRed/InfantryRed"]
