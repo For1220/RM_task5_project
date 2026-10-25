@@ -250,6 +250,11 @@ func request_activation(team_id: int) -> void:
 		activation_is_large[team_id] = false
 		activation_id[team_id] += 1
 		activation_started_at[team_id] = MatchState.elapsed
+		get_tree().call_group(
+			"notification_feed",
+			"push_notification",
+			"[RUNE] %s开始激活小能量机关" % _team_name(team_id)
+		)
 		_small_act(team_id)
 	else:
 		if large_chance[team_id] <= 0:
@@ -261,6 +266,11 @@ func request_activation(team_id: int) -> void:
 		activation_is_large[team_id] = true
 		activation_id[team_id] += 1
 		activation_started_at[team_id] = MatchState.elapsed
+		get_tree().call_group(
+			"notification_feed",
+			"push_notification",
+			"[RUNE] %s开始激活大能量机关" % _team_name(team_id)
+		)
 		_begin_large_motion(team_id)
 		_large_act(team_id)
 
@@ -740,6 +750,12 @@ func _finish_activation(team_id: int, success: bool, buff_duration: float = 0.0)
 		# 20 秒窗口内没有完成，进入未激活状态
 		current_state[team_id] = RuneState.IDLE
 		_set_idle_state(team_id)
+		var mode := "大" if activation_is_large[team_id] else "小"
+		get_tree().call_group(
+			"notification_feed",
+			"push_notification",
+			"[RUNE] %s%s能量机关激活失败" % [_team_name(team_id), mode]
+		)
 
 
 func on_target_hit(hit_tar_name: String, hit_pos: Vector3) -> bool:
