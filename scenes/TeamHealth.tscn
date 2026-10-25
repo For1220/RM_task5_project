@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cteamhealth26"]
+
+[ext_resource type="PackedScene" uid="uid://chealthrow26x" path="res://scenes/HealthRow.tscn" id="1_healthrow"]
+
+[node name="TeamHealth" type="Control" unique_id=1954887645]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BlueGroup" type="VBoxContainer" parent="." unique_id=1599130602]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = 30.0
+offset_top = 24.0
+offset_right = -130.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 9
+
+[node name="BlueBaseRow" parent="BlueGroup" unique_id=1292523957 instance=ExtResource("1_healthrow")]
+layout_mode = 2
+is_base = true
+
+[node name="BlueOutpostRow" parent="BlueGroup" unique_id=1964420190 instance=ExtResource("1_healthrow")]
+layout_mode = 2
+icon_key = "outpost_blue"
+initial_current = 1500
+initial_max = 1500
+
+[node name="RedGroup" type="VBoxContainer" parent="." unique_id=9260873]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+offset_left = 130.0
+offset_top = 24.0
+offset_right = -30.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 9
+
+[node name="RedBaseRow" parent="RedGroup" unique_id=2074962451 instance=ExtResource("1_healthrow")]
+layout_mode = 2
+icon_key = "base_red"
+red_side = true
+is_base = true
+
+[node name="RedOutpostRow" parent="RedGroup" unique_id=1177189367 instance=ExtResource("1_healthrow")]
+layout_mode = 2
+icon_key = "outpost_red"
+red_side = true
+initial_current = 1500
+initial_max = 1500

@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/VChainPulse.gd" id="1_vchain"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vchain"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0, 0.55, 1, 1)
+emission_energy_multiplier = 6.0
+roughness = 1.0
+no_depth_test = true
+render_priority = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_vchain_arm"]
+size = Vector3(0.012, 0.06, 0.006)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vchain_tip"]
+radius = 0.006
+height = 0.012
+
+[node name="VChainPulse" type="Node3D"]
+script = ExtResource("1_vchain")
+travel_start = Vector3(0.10, 0, -0.10)
+travel_end = Vector3(-0.10, 0, 0.10)
+
+[node name="VShape" type="Node3D" parent="."]
+transform = Transform3D(0, -0.7071068, 0.7071068, 1, 0, 0, 0, 0.7071068, 0.7071068, 0, 0, 0)
+
+[node name="LeftArm" type="MeshInstance3D" parent="VShape"]
+transform = Transform3D(0.819152, -0.573576, 0, 0.573576, 0.819152, 0, 0, 0, 1, -0.018, -0.005, 0)
+mesh = SubResource("BoxMesh_vchain_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_vchain")
+cast_shadow = 0
+
+[node name="RightArm" type="MeshInstance3D" parent="VShape"]
+transform = Transform3D(0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0, 1, 0.018, -0.005, 0)
+mesh = SubResource("BoxMesh_vchain_arm")
+surface_material_override/0 = SubResource("StandardMaterial3D_vchain")
+cast_shadow = 0
+
+[node name="Tip" type="MeshInstance3D" parent="VShape"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("SphereMesh_vchain_tip")
+surface_material_override/0 = SubResource("StandardMaterial3D_vchain")
+cast_shadow = 0

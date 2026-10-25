@@ -1,0 +1,47 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="xpStar" x1="16" y1="5" x2="49" y2="59" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4EBFF"/>
+      <stop offset="0.42" stop-color="#CDB7FF"/>
+      <stop offset="1" stop-color="#8B68F0"/>
+    </linearGradient>
+    <radialGradient id="xpGlow" cx="28%" cy="20%" r="90%">
+      <stop stop-color="#FFFFFF" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <path d="M32 4
+           L38.47 23.10
+           L58.63 23.35
+           L42.46 35.40
+           L48.46 54.65
+           L32 43
+           L15.54 54.65
+           L21.54 35.40
+           L5.37 23.35
+           L25.53 23.10
+           Z"
+        fill="url(#xpStar)"
+        stroke="#FFFFFF"
+        stroke-width="1.4"
+        stroke-linejoin="round"/>
+
+  <path d="M32 4
+           L38.47 23.10
+           L58.63 23.35
+           L42.46 35.40
+           L48.46 54.65
+           L32 43
+           L15.54 54.65
+           L21.54 35.40
+           L5.37 23.35
+           L25.53 23.10
+           Z"
+        fill="url(#xpGlow)"/>
+
+  <g fill="none" stroke="#2B1B5E" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.4">
+    <path d="M19 22 L29 42 M29 22 L19 42"/>
+    <path d="M36 42 V22 H40.5 C45 22 47.5 25 47.5 29 C47.5 33 45 35.5 40.5 35.5 H36"/>
+  </g>
+</svg>

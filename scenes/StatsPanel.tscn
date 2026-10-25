@@ -1,0 +1,212 @@
+[gd_scene format=3 uid="uid://jlviij6job1q"]
+
+[ext_resource type="Texture2D" uid="uid://cflid4et0gnx2" path="res://assets/ui/icon_hp.svg" id="1_ex5lt"]
+[ext_resource type="Script" uid="uid://djfdwav0mv5m5" path="res://scripts/StatsPanel.gd" id="1_vmrkt"]
+[ext_resource type="Texture2D" uid="uid://bycsbj18wwdjw" path="res://assets/ui/icon_ammo.svg" id="2_vmrkt"]
+[ext_resource type="Texture2D" uid="uid://ceti1842aphmx" path="res://assets/ui/icon_heat.svg" id="3_vqr6y"]
+
+[node name="StatsPanel" type="VBoxContainer" unique_id=484438514]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -352.0
+offset_top = -190.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 2
+script = ExtResource("1_vmrkt")
+
+[node name="Header" type="HBoxContainer" parent="." unique_id=367684834]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UnitLabel" type="Label" parent="Header" unique_id=547771766]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.886, 0.969, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "BLUE 1"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Header" unique_id=1765624138]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="LiveBox" type="HBoxContainer" parent="Header" unique_id=1234303768]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="LiveDot" type="Panel" parent="Header/LiveBox" unique_id=425380674]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="LiveLabel" type="Label" parent="Header/LiveBox" unique_id=798261613]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.663, 0.776, 0.847, 1)
+theme_override_font_sizes/font_size = 11
+text = "LIVE"
+vertical_alignment = 1
+
+[node name="HPRow" type="HBoxContainer" parent="." unique_id=1587952512]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="HPIcon" type="TextureRect" parent="HPRow" unique_id=1365637805]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("1_ex5lt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HPBar" type="ProgressBar" parent="HPRow" unique_id=350492438]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+fill_mode = 1
+show_percentage = false
+
+[node name="StatusLabel" type="Label" parent="HPRow/HPBar" unique_id=2027033126]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+
+[node name="ValueLabel" type="Label" parent="HPRow/HPBar" unique_id=1611312769]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "0/0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AmmoRow" type="HBoxContainer" parent="." unique_id=646500687]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="AmmoIcon" type="TextureRect" parent="AmmoRow" unique_id=499829284]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_vmrkt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AmmoBar" type="ProgressBar" parent="AmmoRow" unique_id=1212026976]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+fill_mode = 1
+show_percentage = false
+
+[node name="StatusLabel" type="Label" parent="AmmoRow/AmmoBar" unique_id=950367216]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+
+[node name="ValueLabel" type="Label" parent="AmmoRow/AmmoBar" unique_id=824026138]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "0/0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HeatRow" type="HBoxContainer" parent="." unique_id=1679207712]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="HeatIcon" type="TextureRect" parent="HeatRow" unique_id=1233454985]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_vqr6y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HeatBar" type="ProgressBar" parent="HeatRow" unique_id=1116871248]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+fill_mode = 1
+show_percentage = false
+
+[node name="StatusLabel" type="Label" parent="HeatRow/HeatBar" unique_id=1810876084]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+
+[node name="ValueLabel" type="Label" parent="HeatRow/HeatBar" unique_id=1072954008]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "0/0"
+horizontal_alignment = 2
+vertical_alignment = 1

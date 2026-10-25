@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/BuffDisplay.gd" id="1_buffdisplay"]
+[ext_resource type="PackedScene" path="res://scenes/BuffSlot.tscn" id="2_buffslot"]
+
+[node name="BuffDisplay" type="HBoxContainer"]
+visible = false
+z_index = 6
+layout_mode = 0
+mouse_filter = 2
+theme_override_constants/separation = 8
+script = ExtResource("1_buffdisplay")
+
+[node name="Damage" parent="." instance=ExtResource("2_buffslot")]
+layout_mode = 2
+
+[node name="Defense" parent="." instance=ExtResource("2_buffslot")]
+layout_mode = 2
+
+[node name="Heat" parent="." instance=ExtResource("2_buffslot")]
+layout_mode = 2
+
+[node name="Exp" parent="." instance=ExtResource("2_buffslot")]
+layout_mode = 2

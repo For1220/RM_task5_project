@@ -1,0 +1,326 @@
+[gd_scene format=3 uid="uid://cqyyf7lywlpnb"]
+
+[ext_resource type="Texture2D" uid="uid://cxmuxvf0n0osh" path="res://assets/ui/keycaps/key_w_light.svg" id="1_w"]
+[ext_resource type="Texture2D" uid="uid://bc1a73mq7gcd7" path="res://assets/ui/keycaps/key_a_light.svg" id="2_a"]
+[ext_resource type="Texture2D" uid="uid://3ya7du8k7t1g" path="res://assets/ui/keycaps/key_s_light.svg" id="3_s"]
+[ext_resource type="Texture2D" uid="uid://n46bb4qtg6av" path="res://assets/ui/keycaps/key_d_light.svg" id="4_d"]
+[ext_resource type="Texture2D" uid="uid://du3wttv22wjog" path="res://assets/ui/keycaps/key_space_light.svg" id="5_space"]
+[ext_resource type="Texture2D" uid="uid://caruslia0n300" path="res://assets/ui/keycaps/key_r_light.svg" id="6_r"]
+[ext_resource type="Texture2D" uid="uid://eh5fajfm4as" path="res://assets/ui/keycaps/key_p_light.svg" id="7_p"]
+[ext_resource type="Texture2D" uid="uid://cu7lmleee5jet" path="res://assets/ui/keycaps/key_f_light.svg" id="8_f"]
+
+[sub_resource type="SystemFont" id="SystemFont_cjk"]
+font_names = PackedStringArray("Noto Sans CJK SC", "Noto Sans CJK", "Microsoft YaHei", "PingFang SC", "WenQuanYi Zen Hei", "Sans-Serif")
+font_weight = 600
+
+[sub_resource type="Theme" id="Theme_controls"]
+default_font = SubResource("SystemFont_cjk")
+default_font_size = 14
+
+[sub_resource type="GDScript" id="GDScript_controls"]
+script/source = "extends Control
+
+@export var compact_scale: float = 0.72
+@export var compact_shift: float = 40.0
+
+func _ready() -> void:
+	get_viewport().size_changed.connect(_apply_scale)
+	call_deferred(\"_apply_scale\")
+
+func _process(_delta: float) -> void:
+	var hud := get_parent()
+	var start_panel := hud.get_node_or_null(\"StartPanel\") as Control if hud else null
+	if is_instance_valid(start_panel):
+		visible = not start_panel.visible
+
+func _apply_scale() -> void:
+	var compact := get_viewport().get_visible_rect().size.x < 1500.0
+	scale = Vector2.ONE * (compact_scale if compact else 1.0)
+	var shift := compact_shift if compact else 0.0
+	offset_left = -470.0 + shift
+	offset_right = 470.0 + shift
+	pivot_offset = Vector2(size.x * 0.5, size.y)
+"
+
+[node name="ControlsHint" type="Control" unique_id=1459830674]
+z_index = 5
+texture_filter = 3
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -470.0
+offset_top = -128.0
+offset_right = 470.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme = SubResource("Theme_controls")
+script = SubResource("GDScript_controls")
+
+[node name="HBox" type="HBoxContainer" parent="." unique_id=86396616]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="MoveGroup" type="HBoxContainer" parent="HBox" unique_id=815180308]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="WASD" type="VBoxContainer" parent="HBox/MoveGroup" unique_id=1454282215]
+custom_minimum_size = Vector2(134, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="WRow" type="HBoxContainer" parent="HBox/MoveGroup/WASD" unique_id=518614382]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="WKey" type="TextureRect" parent="HBox/MoveGroup/WASD/WRow" unique_id=251627339]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("1_w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ASDRow" type="HBoxContainer" parent="HBox/MoveGroup/WASD" unique_id=1743689836]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="AKey" type="TextureRect" parent="HBox/MoveGroup/WASD/ASDRow" unique_id=68567420]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SKey" type="TextureRect" parent="HBox/MoveGroup/WASD/ASDRow" unique_id=1064738820]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_s")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DKey" type="TextureRect" parent="HBox/MoveGroup/WASD/ASDRow" unique_id=1766036942]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("4_d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MoveCopy" type="VBoxContainer" parent="HBox/MoveGroup" unique_id=783040572]
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="HBox/MoveGroup/MoveCopy" unique_id=547279569]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.89, 0.93, 0.96, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 14
+text = "移动"
+
+[node name="Sub" type="Label" parent="HBox/MoveGroup/MoveCopy" unique_id=384770807]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56, 0.68, 0.76, 0.78)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.55)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 9
+text = "MOVE"
+
+[node name="Divider1" type="ColorRect" parent="HBox" unique_id=627400658]
+custom_minimum_size = Vector2(1, 64)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0.68, 0.82, 0.9, 0.18)
+
+[node name="JumpGroup" type="HBoxContainer" parent="HBox" unique_id=273798605]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="SpaceKey" type="TextureRect" parent="HBox/JumpGroup" unique_id=388479714]
+custom_minimum_size = Vector2(126, 53)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("5_space")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="JumpCopy" type="VBoxContainer" parent="HBox/JumpGroup" unique_id=1232100477]
+custom_minimum_size = Vector2(58, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="HBox/JumpGroup/JumpCopy" unique_id=949622446]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.89, 0.93, 0.96, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 14
+text = "跳跃"
+
+[node name="Sub" type="Label" parent="HBox/JumpGroup/JumpCopy" unique_id=961775479]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56, 0.68, 0.76, 0.78)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.55)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 9
+text = "JUMP"
+
+[node name="Divider2" type="ColorRect" parent="HBox" unique_id=880565729]
+custom_minimum_size = Vector2(1, 64)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0.68, 0.82, 0.9, 0.18)
+
+[node name="FGroup" type="HBoxContainer" parent="HBox" unique_id=1700000001]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="FKey" type="TextureRect" parent="HBox/FGroup" unique_id=1700000002]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("8_f")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FCopy" type="VBoxContainer" parent="HBox/FGroup" unique_id=1700000003]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="HBox/FGroup/FCopy" unique_id=1700000004]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39, 0.86, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 14
+text = "打开飞镖"
+
+[node name="Sub" type="Label" parent="HBox/FGroup/FCopy" unique_id=1700000005]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.39, 0.86, 1, 0.46)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.55)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 9
+text = "DART"
+
+[node name="RGroup" type="HBoxContainer" parent="HBox" unique_id=288536586]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="RKey" type="TextureRect" parent="HBox/RGroup" unique_id=916099038]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_r")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RCopy" type="VBoxContainer" parent="HBox/RGroup" unique_id=16496877]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="HBox/RGroup/RCopy" unique_id=1874981584]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.89, 0.93, 0.96, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 14
+text = "暂停 / 继续"
+
+[node name="Sub" type="Label" parent="HBox/RGroup/RCopy" unique_id=600102337]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56, 0.68, 0.76, 0.78)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.55)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 9
+text = "PAUSE / RESUME"
+
+[node name="PGroup" type="HBoxContainer" parent="HBox" unique_id=1339739207]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="PKey" type="TextureRect" parent="HBox/PGroup" unique_id=222982865]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("7_p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PCopy" type="VBoxContainer" parent="HBox/PGroup" unique_id=910516961]
+custom_minimum_size = Vector2(126, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="HBox/PGroup/PCopy" unique_id=1121212968]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.706, 0.329, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 14
+text = "触发能量机关"
+
+[node name="Sub" type="Label" parent="HBox/PGroup/PCopy" unique_id=1269568164]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.706, 0.329, 0.46)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.55)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 9
+text = "TRIGGER RUNE"
+

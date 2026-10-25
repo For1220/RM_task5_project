@@ -1,0 +1,24 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Local backups and editor data
+/Back_up/
+/.obsidian/
+/tools/__pycache__/
+/main.tscn.bak
+/scenes/base.tscn
+/release/
+/video/
+
+# Blender source: keep only the runtime collision asset
+/blender/*
+!/blender/TECH_COL.glb
+!/blender/TECH_COL.glb.import
+
+# Textures: keep the runtime texture used by infantry.tscn
+/textures/*
+!/textures/3.png
+!/textures/3.png.import
+
+/shaders/

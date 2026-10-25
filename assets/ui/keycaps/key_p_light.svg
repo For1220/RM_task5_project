@@ -1,0 +1,87 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="body" x1="128" y1="18" x2="128" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".58" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#C7D8E8"/>
+    </linearGradient>
+    <radialGradient id="face" cx="30%" cy="16%" r="92%">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset=".46" stop-color="#EDF4FA"/>
+      <stop offset="1" stop-color="#D6E3EF"/>
+    </radialGradient>
+    <linearGradient id="lip" x1="128" y1="188" x2="128" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF3FA"/>
+      <stop offset="1" stop-color="#B5C8D9"/>
+    </linearGradient>
+    <linearGradient id="bevel" x1="60" y1="38" x2="206" y2="188" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".62"/>
+      <stop offset=".48" stop-color="#A9C1D5" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#698096" stop-opacity=".62"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="86" y1="208" x2="170" y2="212" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E9BD8" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#0E9BD8"/>
+      <stop offset="1" stop-color="#0E9BD8" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- outer glow -->
+  <rect x="8" y="8" width="240" height="240" rx="60" fill="#0E9BD8" opacity=".10"/>
+
+  <!-- contact shadow on the ground plane -->
+  <ellipse cx="128" cy="232" rx="96" ry="15" fill="#5B7288" opacity=".24"/>
+  <path d="M66 18 H190 C204 18 214 26 217 38 L234 190 C236 204 226 218 212 224 L208 226 H48 L44 224 C30 218 20 204 22 190 L39 38 C42 26 52 18 66 18 Z" transform="translate(10 12)" fill="#5B7288" opacity=".34"/>
+
+  <!-- side wall: a single offset copy of the body -->
+  <path d="M66 18 H190 C204 18 214 26 217 38 L234 190 C236 204 226 218 212 224 L208 226 H48 L44 224 C30 218 20 204 22 190 L39 38 C42 26 52 18 66 18 Z" transform="translate(7 9)" fill="#AFC2D4" opacity=".95"/>
+
+  <!-- key body -->
+  <path d="M66 18 H190 C204 18 214 26 217 38 L234 190 C236 204 226 218 212 224 L208 226 H48 L44 224 C30 218 20 204 22 190 L39 38 C42 26 52 18 66 18 Z" fill="url(#body)" stroke="#8FA6BB" stroke-width="2"/>
+
+  <!-- body edge light / dark, following the perspective -->
+  <path d="M66 18H190C204 18 214 26 217 38"
+        stroke="#B8E8FF" stroke-opacity=".18" stroke-width="3" stroke-linecap="round"/>
+  <path d="M217 38L234 190"
+        stroke="#000000" stroke-opacity=".25" stroke-width="4" stroke-linecap="round"/>
+  <path d="M39 38L22 190"
+        stroke="#B8E8FF" stroke-opacity=".10" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- top face: thick gradient stroke acts as the bevel frame -->
+  <path d="M82 38 H174 C186 38 195 45 197 56 L206 168 C208 180 200 188 188 188 H68 C56 188 48 180 50 168 L59 56 C61 45 70 38 82 38 Z" fill="none" stroke="url(#bevel)" stroke-width="8"/>
+  <path d="M82 38 H174 C186 38 195 45 197 56 L206 168 C208 180 200 188 188 188 H68 C56 188 48 180 50 168 L59 56 C61 45 70 38 82 38 Z" fill="url(#face)" stroke="#A8BED1" stroke-width="1.5"/>
+
+  <!-- top inner shadow, following the back edge -->
+  <path d="M82 38H174C186 38 195 45 197 56"
+        stroke="#000000" stroke-opacity=".14" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- top bevel highlight -->
+  <path d="M90 44H166"
+        stroke="#FFFFFF" stroke-opacity=".55" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- side edge light / dark on the top face -->
+  <path d="M59 56L50 168" stroke="#D7F3FF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>
+  <path d="M197 56L206 168" stroke="#000000" stroke-opacity=".18" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- bottom inner shadow where the top face meets the front lip -->
+  <path d="M68 188H188" stroke="#000000" stroke-opacity=".32" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- soft specular band, kept inside the top face -->
+  <path d="M84 72C112 56 144 56 172 72L172 82C144 68 112 68 84 82Z"
+        fill="#FFFFFF" opacity=".08"/>
+
+  <!-- front side wall / lip -->
+  <path d="M68 188 H188 C198 188 206 194 207 204 L208 226 H48 L49 204 C50 194 58 188 68 188 Z" fill="url(#lip)" stroke="#000000" stroke-opacity=".28" stroke-width="1"/>
+  <path d="M68 188H188" stroke="#000000" stroke-opacity=".45" stroke-width="4"/>
+  <path d="M74 194H182" stroke="#8FA6BB" stroke-opacity=".18" stroke-width="2"/>
+  <path d="M50 221H206" stroke="#FFFFFF" stroke-opacity=".06" stroke-width="2"/>
+
+  <!-- accent strip on the front lip -->
+  <rect x="86" y="206" width="84" height="7" rx="3.5" fill="url(#accent)" opacity=".14"/>
+  <rect x="100" y="208" width="56" height="3" rx="1.5" fill="#0E9BD8" opacity=".95"/>
+
+  <!-- embossed legend, tapered with the top face -->
+  <path transform="translate(0 4) " d="M159.45848469309885 91.48828956706885Q159.9586814914362 100.17530163236337 156.89089416057476 107.00993612491128Q153.7388986999825 113.8445706174592 147.3385863260667 117.58126330731014Q140.85250770545832 121.3179559971611 131.74984077820724 121.3179559971611H111.7125236427488L110.81692689850958 153.0H92.99968062455642L98.18186657203691 62.999999999999986H130.75283889283182Q143.77093683463448 62.999999999999986 151.12208558889145 70.4414478353442Q158.6750882368793 77.88289567068843 159.45848469309885 91.48828956706885ZM143.34463672900714 91.80766501064585Q142.94660289903544 77.62739531582682 129.08462074134593 77.62739531582682H112.94758044327226L112.12240360432604 106.81831085876507H129.59055007830125Q136.39922058892418 106.81831085876507 139.99946894167627 102.95386799148332Q143.54903247953314 99.08942512420155 143.34463672900714 91.80766501064585Z" fill="#6E8296" opacity=".38"/>
+<path transform="translate(0 -2) " d="M159.45848469309885 91.48828956706885Q159.9586814914362 100.17530163236337 156.89089416057476 107.00993612491128Q153.7388986999825 113.8445706174592 147.3385863260667 117.58126330731014Q140.85250770545832 121.3179559971611 131.74984077820724 121.3179559971611H111.7125236427488L110.81692689850958 153.0H92.99968062455642L98.18186657203691 62.999999999999986H130.75283889283182Q143.77093683463448 62.999999999999986 151.12208558889145 70.4414478353442Q158.6750882368793 77.88289567068843 159.45848469309885 91.48828956706885ZM143.34463672900714 91.80766501064585Q142.94660289903544 77.62739531582682 129.08462074134593 77.62739531582682H112.94758044327226L112.12240360432604 106.81831085876507H129.59055007830125Q136.39922058892418 106.81831085876507 139.99946894167627 102.95386799148332Q143.54903247953314 99.08942512420155 143.34463672900714 91.80766501064585Z" fill="#FFFFFF" opacity=".16"/>
+<path transform="" d="M159.45848469309885 91.48828956706885Q159.9586814914362 100.17530163236337 156.89089416057476 107.00993612491128Q153.7388986999825 113.8445706174592 147.3385863260667 117.58126330731014Q140.85250770545832 121.3179559971611 131.74984077820724 121.3179559971611H111.7125236427488L110.81692689850958 153.0H92.99968062455642L98.18186657203691 62.999999999999986H130.75283889283182Q143.77093683463448 62.999999999999986 151.12208558889145 70.4414478353442Q158.6750882368793 77.88289567068843 159.45848469309885 91.48828956706885ZM143.34463672900714 91.80766501064585Q142.94660289903544 77.62739531582682 129.08462074134593 77.62739531582682H112.94758044327226L112.12240360432604 106.81831085876507H129.59055007830125Q136.39922058892418 106.81831085876507 139.99946894167627 102.95386799148332Q143.54903247953314 99.08942512420155 143.34463672900714 91.80766501064585Z" fill="#152333"/>
+</svg>

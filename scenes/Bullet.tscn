@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://le2o1jn128w"]
+
+[ext_resource type="Script" uid="uid://cs724tqit1icp" path="res://scripts/bullet.gd" id="1_hf8mt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cs3h5"]
+albedo_color = Color(0.1764706, 1, 1, 1)
+emission_enabled = true
+emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ay7qh"]
+radius = 0.025
+height = 0.05
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ay7qh"]
+margin = 0.01
+radius = 0.025
+
+[node name="Area3D" type="Area3D" unique_id=1676250382]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_hf8mt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=344027158]
+layers = 9
+material_override = SubResource("StandardMaterial3D_cs3h5")
+mesh = SubResource("SphereMesh_ay7qh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=270467818]
+shape = SubResource("SphereShape3D_ay7qh")

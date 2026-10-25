@@ -1,0 +1,835 @@
+[gd_scene format=3 uid="uid://bepqxlo4k5lam"]
+
+[ext_resource type="Script" uid="uid://dyfyfrq1dbai6" path="res://scripts/HUD.gd" id="1_qpvh6"]
+[ext_resource type="PackedScene" uid="uid://jlviij6job1q" path="res://scenes/StatsPanel.tscn" id="2_fls4u"]
+[ext_resource type="PackedScene" uid="uid://dlljb6xi6f25t" path="res://scenes/TopStatus.tscn" id="4_nysna"]
+[ext_resource type="Script" uid="uid://b3tf8gwqtani4" path="res://scripts/TopStatus.gd" id="5_f6qnu"]
+[ext_resource type="PackedScene" uid="uid://cnotif2026abc" path="res://scenes/NotificationFeed.tscn" id="6_twldb"]
+[ext_resource type="Script" uid="uid://cqhfkj8gqqo6d" path="res://scripts/NotificationFeed.gd" id="7_8cuoo"]
+[ext_resource type="PackedScene" uid="uid://cteamhealth26" path="res://scenes/TeamHealth.tscn" id="8_8cuoo"]
+[ext_resource type="Script" uid="uid://bu11rhkki6p2y" path="res://scripts/TeamHealth.gd" id="9_cf6ij"]
+[ext_resource type="PackedScene" uid="uid://cminimap2026x" path="res://scenes/Minimap.tscn" id="10_cf6ij"]
+[ext_resource type="Script" uid="uid://c37wv7tape3do" path="res://scripts/Minimap.gd" id="11_meimr"]
+[ext_resource type="PackedScene" uid="uid://cqyyf7lywlpnb" path="res://scenes/ControlsHint.tscn" id="12_rve7n"]
+[ext_resource type="Script" uid="uid://dff0eajykw51f" path="res://scripts/ControlsHint.gd" id="13_ljw04"]
+[ext_resource type="Texture2D" uid="uid://32mxxa265uvj" path="res://assets/ui/icon_xp.svg" id="14_xp"]
+[ext_resource type="PackedScene" uid="uid://rax3gaw433ev" path="res://scenes/DartPanel.tscn" id="15_natmc"]
+[ext_resource type="PackedScene" path="res://scenes/BuffDisplay.tscn" id="15_p625d"]
+[ext_resource type="Script" uid="uid://r42wirly361u" path="res://scripts/DartLauncher.gd" id="16_p625d"]
+[ext_resource type="PackedScene" uid="uid://co32ymjynkpmy" path="res://scenes/GameOverPanel.tscn" id="17_wi42t"]
+
+[sub_resource type="GDScript" id="GDScript_death_overlay"]
+script/source = "extends Control
+
+@onready var respawn_label: Label = $Center/VBox/RespawnLabel
+
+
+func _ready() -> void:
+	visible = false
+
+
+func _process(_delta: float) -> void:
+	var player := get_tree().get_first_node_in_group(\"Player\")
+	if player == null:
+		visible = false
+		return
+
+	var dead := bool(player.get(\"is_dead\"))
+	var hud := get_parent()
+	var start_panel := hud.get_node_or_null(\"StartPanel\") as Control
+	var can_show := dead and (start_panel == null or not start_panel.visible)
+
+	if MatchState.phase_name() == \"ENDED\":
+		can_show = false
+
+	visible = can_show
+	if not can_show:
+		return
+
+	var end_time_value = player.get(\"respawn_end_time\")
+	var end_time := float(end_time_value) if end_time_value != null else 0.0
+	var left := maxf(end_time - MatchState.elapsed, 0.0)
+	respawn_label.text = \"复活倒计时：%d s\" % ceili(left)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp_track"]
+bg_color = Color(0.024, 0.055, 0.08, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.055)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp_fill"]
+bg_color = Color(0.659, 0.549, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ay7qh"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tefdl"]
+bg_color = Color(1, 0.64705884, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cs3h5"]
+bg_color = Color(0.2, 0.2, 0.2, 0.52156866)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_selection_card"]
+bg_color = Color(0.035, 0.07, 0.1, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.86, 1, 0.35)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_selection_blue"]
+bg_color = Color(0.055, 0.12, 0.19, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.62, 1, 0.48)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_selection_key"]
+bg_color = Color(0.92, 0.96, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.66, 0.76, 0.8)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 0.38)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_selection_red"]
+bg_color = Color(0.18, 0.065, 0.09, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.37, 0.48, 0.48)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rebuild_panel"]
+bg_color = Color(0.025, 0.055, 0.078, 0.93)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.86, 1, 0.28)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rebuild_track"]
+bg_color = Color(0.015, 0.035, 0.055, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.07)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rebuild_blue"]
+bg_color = Color(0.18, 0.57, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rebuild_red"]
+bg_color = Color(1, 0.3, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HUD" type="CanvasLayer" unique_id=1611230]
+script = ExtResource("1_qpvh6")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1824215556]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line_H" type="ColorRect" parent="CenterContainer" unique_id=436489900]
+custom_minimum_size = Vector2(20, 2)
+layout_mode = 2
+
+[node name="Line_V" type="ColorRect" parent="CenterContainer" unique_id=1836540815]
+custom_minimum_size = Vector2(2, 20)
+layout_mode = 2
+
+[node name="DeathOverlay" type="Control" parent="." unique_id=1162004068]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_death_overlay")
+
+[node name="Dim" type="ColorRect" parent="DeathOverlay" unique_id=1462470561]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.62)
+
+[node name="Center" type="CenterContainer" parent="DeathOverlay" unique_id=2038475270]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="DeathOverlay/Center" unique_id=1956449409]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="DeathOverlay/Center/VBox" unique_id=14403313]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.37, 0.48, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 42
+text = "阵亡 / DEAD"
+horizontal_alignment = 1
+
+[node name="RespawnLabel" type="Label" parent="DeathOverlay/Center/VBox" unique_id=1246858633]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+text = "复活倒计时：10 s"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="DeathOverlay/Center/VBox" unique_id=594329440]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56, 0.68, 0.76, 1)
+theme_override_font_sizes/font_size = 11
+text = "等待复活..."
+horizontal_alignment = 1
+
+[node name="StatsPanel" parent="." unique_id=838652159 instance=ExtResource("2_fls4u")]
+
+[node name="LevelLabel" type="Label" parent="StatsPanel/Header" parent_id_path=PackedInt32Array(838652159, 367684834) index="3" unique_id=752421579]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.66, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "LV.1"
+vertical_alignment = 1
+
+[node name="ExpRow" type="HBoxContainer" parent="StatsPanel" unique_id=1818103868]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="ExpIcon" type="TextureRect" parent="StatsPanel/ExpRow" unique_id=293532326]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("14_xp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ExpSpacer" type="Control" parent="StatsPanel/ExpRow" unique_id=176491819]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="XPBAR" type="ProgressBar" parent="StatsPanel/ExpRow" unique_id=179194578]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xp_track")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xp_fill")
+fill_mode = 1
+show_percentage = false
+
+[node name="XPBar" type="Control" parent="StatsPanel/ExpRow" unique_id=285345826]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="ValueLabel" type="Label" parent="StatsPanel/ExpRow/XPBar" unique_id=140134338]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 11
+text = "0/0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TopStatus" parent="." unique_id=1348954318 instance=ExtResource("4_nysna")]
+script = ExtResource("5_f6qnu")
+
+[node name="NetStatus" type="Label" parent="." unique_id=2146834416]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.0
+offset_top = 112.0
+offset_right = 180.0
+offset_bottom = 132.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.37, 0.48, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
+text = "NET ● DOWN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RebuildPanel" type="PanelContainer" parent="." unique_id=3000000001]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -55.0
+offset_right = -30.0
+offset_bottom = 55.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rebuild_panel")
+
+[node name="Margin" type="MarginContainer" parent="RebuildPanel" unique_id=3000000002]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 9
+
+[node name="VBox" type="VBoxContainer" parent="RebuildPanel/Margin" unique_id=3000000003]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="Header" type="HBoxContainer" parent="RebuildPanel/Margin/VBox" unique_id=3000000004]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="RebuildPanel/Margin/VBox/Header" unique_id=3000000005]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.84, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "OUTPOST REBUILD"
+
+[node name="Spacer" type="Control" parent="RebuildPanel/Margin/VBox/Header" unique_id=3000000006]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Hint" type="Label" parent="RebuildPanel/Margin/VBox/Header" unique_id=3000000007]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.34, 0.52, 0.64, 1)
+theme_override_font_sizes/font_size = 8
+text = "前哨站增益点"
+
+[node name="BlueRow" type="VBoxContainer" parent="RebuildPanel/Margin/VBox" unique_id=3000000008]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="BlueHeader" type="HBoxContainer" parent="RebuildPanel/Margin/VBox/BlueRow" unique_id=3000000009]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="BlueTitle" type="Label" parent="RebuildPanel/Margin/VBox/BlueRow/BlueHeader" unique_id=3000000010]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.78, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "BLUE"
+
+[node name="BlueSpacer" type="Control" parent="RebuildPanel/Margin/VBox/BlueRow/BlueHeader" unique_id=3000000011]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BlueStatus" type="Label" parent="RebuildPanel/Margin/VBox/BlueRow/BlueHeader" unique_id=3000000012]
+custom_minimum_size = Vector2(132, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.72, 0.84, 1)
+theme_override_font_sizes/font_size = 9
+text = "前哨站在线"
+horizontal_alignment = 2
+
+[node name="BlueChance" type="Label" parent="RebuildPanel/Margin/VBox/BlueRow/BlueHeader" unique_id=3000000013]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.78, 0.86, 1)
+theme_override_font_sizes/font_size = 9
+text = "机会 ×0"
+horizontal_alignment = 2
+
+[node name="BlueBar" type="ProgressBar" parent="RebuildPanel/Margin/VBox/BlueRow" unique_id=3000000014]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_rebuild_track")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rebuild_blue")
+max_value = 10.0
+show_percentage = false
+
+[node name="RedRow" type="VBoxContainer" parent="RebuildPanel/Margin/VBox" unique_id=3000000015]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="RedHeader" type="HBoxContainer" parent="RebuildPanel/Margin/VBox/RedRow" unique_id=3000000016]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="RedTitle" type="Label" parent="RebuildPanel/Margin/VBox/RedRow/RedHeader" unique_id=3000000017]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.54, 0.62, 1)
+theme_override_font_sizes/font_size = 11
+text = "RED"
+
+[node name="RedSpacer" type="Control" parent="RebuildPanel/Margin/VBox/RedRow/RedHeader" unique_id=3000000018]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="RedStatus" type="Label" parent="RebuildPanel/Margin/VBox/RedRow/RedHeader" unique_id=3000000019]
+custom_minimum_size = Vector2(132, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.59, 0.64, 1)
+theme_override_font_sizes/font_size = 9
+text = "前哨站在线"
+horizontal_alignment = 2
+
+[node name="RedChance" type="Label" parent="RebuildPanel/Margin/VBox/RedRow/RedHeader" unique_id=3000000020]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.62, 0.66, 1)
+theme_override_font_sizes/font_size = 9
+text = "机会 ×0"
+horizontal_alignment = 2
+
+[node name="RedBar" type="ProgressBar" parent="RebuildPanel/Margin/VBox/RedRow" unique_id=3000000021]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_rebuild_track")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rebuild_red")
+max_value = 10.0
+show_percentage = false
+
+[node name="StatusPanel" type="Control" parent="." unique_id=587610464]
+visible = false
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 20.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StatusPanel" unique_id=584956230]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AmmoBar" type="ProgressBar" parent="StatusPanel/VBoxContainer" unique_id=550979964]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_ay7qh")
+max_value = 300.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="StatusPanel/VBoxContainer/AmmoBar" unique_id=1345915596]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 23.0
+horizontal_alignment = 2
+
+[node name="HeatBar" type="ProgressBar" parent="StatusPanel/VBoxContainer" unique_id=31810535]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_tefdl")
+show_percentage = false
+
+[node name="Label" type="Label" parent="StatusPanel/VBoxContainer/HeatBar" unique_id=657743248]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 23.0
+horizontal_alignment = 2
+
+[node name="HpBar" type="ProgressBar" parent="StatusPanel/VBoxContainer" unique_id=1026023803]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="StatusPanel/VBoxContainer/HpBar" unique_id=767417822]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="NotificationFeed" parent="." unique_id=483261191 instance=ExtResource("6_twldb")]
+script = ExtResource("7_8cuoo")
+
+[node name="Left_up" type="VBoxContainer" parent="." unique_id=1711748215]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="MiniMapPanel" type="Panel" parent="Left_up" unique_id=1447896982]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cs3h5")
+
+[node name="PlayerIcon" type="ColorRect" parent="Left_up/MiniMapPanel" unique_id=653013181]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(6, 6)
+color = Color(0.21568628, 1, 1, 1)
+
+[node name="TimerLabel" type="Label" parent="Left_up" unique_id=2043287536]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="TeamHealth" parent="." unique_id=1954887645 instance=ExtResource("8_8cuoo")]
+script = ExtResource("9_cf6ij")
+
+[node name="Minimap" parent="." unique_id=1729266363 instance=ExtResource("10_cf6ij")]
+script = ExtResource("11_meimr")
+
+[node name="ControlsHint" parent="." unique_id=1459830674 instance=ExtResource("12_rve7n")]
+script = ExtResource("13_ljw04")
+compact_width = 1500.0
+
+[node name="SelectionPanel" type="Control" parent="." unique_id=1319074177]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="SelectionPanel" unique_id=520239060]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.68)
+
+[node name="Center" type="CenterContainer" parent="SelectionPanel" unique_id=1830468521]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Card" type="PanelContainer" parent="SelectionPanel/Center" unique_id=1138041772]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_selection_card")
+
+[node name="Margin" type="MarginContainer" parent="SelectionPanel/Center/Card" unique_id=1287918876]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="VBox" type="VBoxContainer" parent="SelectionPanel/Center/Card/Margin" unique_id=1893948965]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox" unique_id=1804280983]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "SELECT INFANTRY"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox" unique_id=1866160521]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.62, 0.73, 1)
+theme_override_font_sizes/font_size = 11
+text = "切换控制单位"
+horizontal_alignment = 1
+
+[node name="BlueRow" type="PanelContainer" parent="SelectionPanel/Center/Card/Margin/VBox" unique_id=2146834415]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_selection_blue")
+
+[node name="BlueMargin" type="MarginContainer" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow" unique_id=1697995968]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow/BlueMargin" unique_id=288553904]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="BlueKey" type="PanelContainer" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow/BlueMargin/HBox" unique_id=1460090585]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_selection_key")
+
+[node name="KeyLabel" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow/BlueMargin/HBox/BlueKey" unique_id=1587183488]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.08, 0.12, 0.16, 1)
+theme_override_font_sizes/font_size = 18
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlueInfo" type="VBoxContainer" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow/BlueMargin/HBox" unique_id=1990561659]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Name" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow/BlueMargin/HBox/BlueInfo" unique_id=68013759]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.88, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "蓝色步兵"
+
+[node name="Status" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow/BlueMargin/HBox/BlueInfo" unique_id=418721335]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.62, 0.73, 1)
+theme_override_font_sizes/font_size = 9
+text = "BLUE INFANTRY"
+
+[node name="BlueCurrent" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/BlueRow/BlueMargin/HBox" unique_id=645343893]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.72, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "当前控制"
+horizontal_alignment = 2
+
+[node name="RedRow" type="PanelContainer" parent="SelectionPanel/Center/Card/Margin/VBox" unique_id=1595501989]
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_selection_red")
+
+[node name="RedMargin" type="MarginContainer" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow" unique_id=478259697]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow/RedMargin" unique_id=1782318443]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="RedKey" type="PanelContainer" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow/RedMargin/HBox" unique_id=1794989982]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_selection_key")
+
+[node name="KeyLabel" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow/RedMargin/HBox/RedKey" unique_id=1936887705]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.08, 0.12, 0.16, 1)
+theme_override_font_sizes/font_size = 18
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RedInfo" type="VBoxContainer" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow/RedMargin/HBox" unique_id=400167350]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Name" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow/RedMargin/HBox/RedInfo" unique_id=194463224]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.77, 1)
+theme_override_font_sizes/font_size = 18
+text = "红色步兵"
+
+[node name="Status" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow/RedMargin/HBox/RedInfo" unique_id=1137638722]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.49, 0.54, 1)
+theme_override_font_sizes/font_size = 9
+text = "RED INFANTRY"
+
+[node name="RedCurrent" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox/RedRow/RedMargin/HBox" unique_id=707349047]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.37, 0.48, 1)
+theme_override_font_sizes/font_size = 10
+text = "当前控制"
+horizontal_alignment = 2
+
+[node name="Footer" type="Label" parent="SelectionPanel/Center/Card/Margin/VBox" unique_id=931437645]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.62, 0.73, 0.82)
+theme_override_font_sizes/font_size = 9
+text = "C / Esc 关闭        1 / 2 选择"
+horizontal_alignment = 1
+
+[node name="BuffDisplay" parent="." unique_id=1104520494 instance=ExtResource("15_p625d")]
+layout_mode = 3
+
+[node name="DartPanel" parent="." unique_id=2119530970 instance=ExtResource("15_natmc")]
+script = ExtResource("16_p625d")
+
+[node name="GameOverPanel" parent="." unique_id=1564629513 instance=ExtResource("17_wi42t")]
+
+[node name="StartPanel" type="Control" parent="." unique_id=657544244]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="StartPanel" unique_id=796975223]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.6509804)
+
+[node name="CenterContainer" type="CenterContainer" parent="StartPanel" unique_id=1381028730]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartPanel/CenterContainer" unique_id=1190033706]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="StartPanel/CenterContainer/VBoxContainer" unique_id=1641429673]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "RM 2026 仿真"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Condition" type="Label" parent="StartPanel/CenterContainer/VBoxContainer" unique_id=298475740]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="StartPanel/CenterContainer/VBoxContainer" unique_id=986291047]
+custom_minimum_size = Vector2(240, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "开始比赛"
+
+[node name="ResumeButton" type="Button" parent="StartPanel/CenterContainer/VBoxContainer" unique_id=1744541601]
+visible = false
+custom_minimum_size = Vector2(240, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "继续比赛/continue"
+
+[node name="ResetButton" type="Button" parent="StartPanel/CenterContainer/VBoxContainer" unique_id=611187538]
+visible = false
+custom_minimum_size = Vector2(240, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "重置比赛/restart game"
+
+[node name="Hint" type="Label" parent="StartPanel/CenterContainer/VBoxContainer" unique_id=733315471]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "点击按钮开始/Press to enter"
+horizontal_alignment = 1
+
+[editable path="StatsPanel"]

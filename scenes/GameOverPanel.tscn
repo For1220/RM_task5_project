@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://co32ymjynkpmy"]
+
+[ext_resource type="Script" uid="uid://b4eklvqpa5xfr" path="res://scripts/GameOverPanel.gd" id="1_gameover"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.027, 0.05, 0.075, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.84, 1, 0.42)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0.055, 0.31, 0.43, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.84, 1, 0.62)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.035, 0.2, 0.29, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.68, 0.82, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.075, 0.43, 0.58, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.46, 0.94, 1, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_focus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.95, 1, 0.92)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="GameOverPanel" type="CanvasLayer" unique_id=1564629513]
+process_mode = 3
+layer = 120
+visible = false
+script = ExtResource("1_gameover")
+
+[node name="Root" type="Control" parent="." unique_id=308318355]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root" unique_id=1993145830]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.005, 0.012, 0.02, 0.84)
+
+[node name="Center" type="CenterContainer" parent="Root" unique_id=182222356]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Card" type="PanelContainer" parent="Root/Center" unique_id=774317691]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="Margin" type="MarginContainer" parent="Root/Center/Card" unique_id=1914176443]
+layout_mode = 2
+theme_override_constants/margin_left = 52
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 52
+theme_override_constants/margin_bottom = 36
+
+[node name="VBox" type="VBoxContainer" parent="Root/Center/Card/Margin" unique_id=1829745485]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Eyebrow" type="Label" parent="Root/Center/Card/Margin/VBox" unique_id=571921389]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.68, 0.82, 1)
+theme_override_font_sizes/font_size = 11
+text = "ROBOMASTER 2026  ·  SIMULATION"
+horizontal_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="Root/Center/Card/Margin/VBox" unique_id=1883684808]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.26, 0.78, 0.96, 0.28)
+
+[node name="ResultLabel" type="Label" parent="Root/Center/Card/Margin/VBox" unique_id=9767100]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.34, 1, 0.62, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 86
+text = "VICTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinnerLabel" type="Label" parent="Root/Center/Card/Margin/VBox" unique_id=1135585085]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.78, 1, 1)
+theme_override_font_sizes/font_size = 27
+text = "蓝方胜利"
+horizontal_alignment = 1
+
+[node name="ReasonLabel" type="Label" parent="Root/Center/Card/Margin/VBox" unique_id=291747586]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.64, 0.73, 0.8, 1)
+theme_override_font_sizes/font_size = 17
+text = "比赛结束 · 时间耗尽"
+horizontal_alignment = 1
+
+[node name="PerspectiveLabel" type="Label" parent="Root/Center/Card/Margin/VBox" unique_id=1001654081]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.57, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "最后操纵视角：蓝方"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Root/Center/Card/Margin/VBox" unique_id=992612759]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="RestartButton" type="Button" parent="Root/Center/Card/Margin/VBox" unique_id=1080874476]
+custom_minimum_size = Vector2(320, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.92, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.78, 0.92, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+text = "重新开始 / RESTART"
+
+[node name="HintLabel" type="Label" parent="Root/Center/Card/Margin/VBox" unique_id=1089594657]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.38, 0.5, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "点击重新开始 / CLICK TO RESTART"
+horizontal_alignment = 1

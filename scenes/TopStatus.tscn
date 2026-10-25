@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dlljb6xi6f25t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_live_dot"]
+bg_color = Color(0.302, 0.863, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0.302, 0.863, 1, 0.35)
+shadow_size = 6
+
+[node name="TopStatus" type="Control" unique_id=1348954318]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 24.0
+offset_right = 120.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1434293431]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TimerLabel" type="Label" parent="VBox" unique_id=904373712]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.957, 0.984, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 48
+text = "07:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusRow" type="HBoxContainer" parent="VBox" unique_id=1214027407]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="StatusDot" type="Panel" parent="VBox/StatusRow" unique_id=422792792]
+custom_minimum_size = Vector2(7, 7)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_live_dot")
+
+[node name="StatusLabel" type="Label" parent="VBox/StatusRow" unique_id=723637983]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.302, 0.863, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
+text = "READY"
+vertical_alignment = 1

@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://cnotif2026abc"]
+
+[node name="NotificationFeed" type="Control" unique_id=483261191]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -150.0
+offset_right = 350.0
+offset_bottom = 150.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Header" type="HBoxContainer" parent="." unique_id=210258340]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 27.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="WarningIcon" type="Control" parent="Header" unique_id=1716836924]
+custom_minimum_size = Vector2(27, 27)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Triangle" type="Polygon2D" parent="Header/WarningIcon" unique_id=742650451]
+color = Color(1, 0.706, 0.329, 1)
+antialiased = true
+polygon = PackedVector2Array(13.5, 1, 26, 25, 1, 25)
+
+[node name="Bang" type="Label" parent="Header/WarningIcon" unique_id=742412902]
+layout_mode = 0
+offset_right = 27.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0.106, 0.071, 0.031, 1)
+theme_override_font_sizes/font_size = 17
+text = "!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="Header" unique_id=1479117329]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.874, 0.965, 1, 0.85)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.65)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
+text = "NOTIFICATION"
+vertical_alignment = 1
+
+[node name="Feed" type="ScrollContainer" parent="." unique_id=339675982]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Feed" unique_id=1944666467]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="IdleTimer" type="Timer" parent="." unique_id=359803130]
+process_mode = 3
+wait_time = 10.0
+one_shot = true

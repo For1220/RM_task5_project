@@ -1,0 +1,314 @@
+[gd_scene format=3 uid="uid://cminimap2026x"]
+
+[ext_resource type="Texture2D" uid="uid://dn8qibtbiqi48" path="res://assets/ui/icon_base_blue.png" id="1_base_blue"]
+[ext_resource type="Texture2D" uid="uid://1lf7a2fycrbr" path="res://assets/ui/icon_outpost_blue.png" id="2_outpost_blue"]
+[ext_resource type="Texture2D" uid="uid://bdt51a5kjv7sp" path="res://assets/ui/icon_base_red.png" id="3_base_red"]
+[ext_resource type="Texture2D" uid="uid://3flhl7jexbtg" path="res://assets/ui/icon_outpost_red.png" id="4_outpost_red"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_map_border"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.86, 1, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Minimap" type="Control" unique_id=1729266363]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -223.0
+offset_right = 398.0
+offset_bottom = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="MapView" type="Control" parent="." unique_id=1185098788]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MapBackground" type="ColorRect" parent="MapView" unique_id=1955633783]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.027, 0.055, 0.082, 0.94)
+
+[node name="GridV1" type="ColorRect" parent="MapView" unique_id=347883171]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.2
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.035)
+
+[node name="GridV2" type="ColorRect" parent="MapView" unique_id=1187530144]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_right = 0.4
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.035)
+
+[node name="GridV3" type="ColorRect" parent="MapView" unique_id=1474174413]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_right = 0.6
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.035)
+
+[node name="GridV4" type="ColorRect" parent="MapView" unique_id=1708990804]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_right = 0.8
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.035)
+
+[node name="GridH1" type="ColorRect" parent="MapView" unique_id=658462677]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.3333
+anchor_right = 1.0
+anchor_bottom = 0.3333
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.035)
+
+[node name="GridH2" type="ColorRect" parent="MapView" unique_id=2076430518]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.6667
+anchor_right = 1.0
+anchor_bottom = 0.6667
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.035)
+
+[node name="CenterLine" type="ColorRect" parent="MapView" unique_id=463025361]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.3, 0.86, 1, 0.2)
+
+[node name="BlueBaseMarker" type="TextureRect" parent="MapView" unique_id=1257198140]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 87.0
+offset_right = 77.0
+offset_bottom = 109.0
+mouse_filter = 2
+texture = ExtResource("1_base_blue")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BlueOutpostMarker" type="TextureRect" parent="MapView" unique_id=1485967496]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 87.0
+offset_right = 151.0
+offset_bottom = 109.0
+mouse_filter = 2
+texture = ExtResource("2_outpost_blue")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RedBaseMarker" type="TextureRect" parent="MapView" unique_id=1784094107]
+layout_mode = 0
+offset_left = 291.0
+offset_top = 87.0
+offset_right = 313.0
+offset_bottom = 109.0
+mouse_filter = 2
+texture = ExtResource("3_base_red")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RedOutpostMarker" type="TextureRect" parent="MapView" unique_id=162988910]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 87.0
+offset_right = 239.0
+offset_bottom = 109.0
+mouse_filter = 2
+texture = ExtResource("4_outpost_red")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RuneMarker" type="Control" parent="MapView" unique_id=1964257669]
+anchors_preset = 0
+offset_left = 176.0
+offset_top = 90.0
+offset_right = 192.0
+offset_bottom = 106.0
+mouse_filter = 2
+
+[node name="Diamond" type="Polygon2D" parent="MapView/RuneMarker" unique_id=376518181]
+color = Color(1, 0.706, 0.329, 0.9)
+polygon = PackedVector2Array(8, 0, 16, 8, 8, 16, 0, 8)
+
+[node name="PlayerMarker" type="Control" parent="MapView" unique_id=1474164157]
+anchors_preset = 0
+offset_left = 113.0
+offset_top = 110.0
+offset_right = 137.0
+offset_bottom = 134.0
+rotation = 0.49
+pivot_offset = Vector2(12, 12)
+mouse_filter = 2
+
+[node name="ViewCone" type="Polygon2D" parent="MapView/PlayerMarker" unique_id=443024613]
+color = Color(0.3, 0.86, 1, 0.16)
+polygon = PackedVector2Array(12, 10, 1, -38, 23, -38)
+
+[node name="Arrow" type="Polygon2D" parent="MapView/PlayerMarker" unique_id=2067121368]
+color = Color(0.302, 0.863, 1, 1)
+polygon = PackedVector2Array(12, 2, 21, 22, 12, 17, 3, 22)
+
+[node name="EnemyDots" type="Control" parent="MapView" unique_id=1122490854]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MapBorder" type="Panel" parent="MapView" unique_id=892984302]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_map_border")
+
+[node name="Legend" type="Control" parent="MapView" unique_id=1904924512]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="LegendBG" type="ColorRect" parent="MapView/Legend" unique_id=1155869752]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.016, 0.031, 0.055, 0.72)
+
+[node name="HBox" type="HBoxContainer" parent="MapView/Legend" unique_id=2040705619]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="You" type="Label" parent="MapView/Legend/HBox" unique_id=339935903]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.302, 0.863, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "YOU"
+
+[node name="Blue" type="Label" parent="MapView/Legend/HBox" unique_id=663283646]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.302, 0.616, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "BLUE"
+
+[node name="Red" type="Label" parent="MapView/Legend/HBox" unique_id=1367477994]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.369, 0.478, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "RED"
+
+[node name="Rune" type="Label" parent="MapView/Legend/HBox" unique_id=1314320951]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.706, 0.329, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "RUNE"
+
+[node name="Enemy" type="Label" parent="MapView/Legend/HBox" unique_id=2093629340]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.369, 0.478, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "ENEMY"
+
+[node name="Spacer" type="Control" parent="MapView/Legend/HBox" unique_id=1372420567]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Coords" type="Label" parent="MapView/Legend/HBox" unique_id=324752346]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.396, 0.49, 0.565, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "X +1.2  Z -0.4"
